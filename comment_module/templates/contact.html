@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}album | Contact Us{% endblock %}
+
+{% block body %}
+<div class="album py-5 bg-light">
+  <div class='container'>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message.tags }}!</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container pt-3 mt-3 mb-3 pb-3">
+<form method='post' action='/send_mail'>
+  {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Your Name</label>
+        <input type="text" class="form-control" id="Sender" Name="Sender" placeholder="Your Name Please">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="SenderEmail" name="SenderEmail" placeholder="Email">
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Tell Us, Your Concern</label>
+        <textarea class="form-control" id="SenderIssue" name="SenderIssue" rows="5" placeholder="Tell us about your issue"></textarea>
+      </div>
+    <button type="submit" class="btn btn-primary">Send Us</button>
+  </form>
+</div>
+{% endblock %}

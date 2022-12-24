@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}My Amazing Album{% endblock %}
+
+{% block header %}  
+{% endblock %}   
+{% block body %}
+  <main>
+    <section class="py-5 text-center container mt-2 mb-2">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">ALBUM</h1>
+          <p class="lead text-muted"> Here find, One of the best uploads by us. Album is created on the purpose of providing best of our album picture posts</p>
+          <p>
+            <a href={% url 'contact' %} class="btn btn-primary my-2">Contact Us</a>
+            <a href="/about" class="btn btn-secondary my-2">About Us</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class='container'>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>{{ message.tags }}!</strong> {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+  </div>
+    <div class="album py-5 bg-light">
+      <div class="container-fluid">
+          <div class="pagination">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {% for item in page_obj %}
+                <div class="col-4 mt-3">
+                  <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                    <div class="card-body d-flex flex-column align-items-start">
+                      <strong class="d-inline-block mb-2 text-primary">Album</strong>
+                      <h3 class="mb-0">
+                        <a class="text-dark" href="#">{{ item.album_title }}</a>
+                      </h3>
+                      <div class="mb-1 text-muted">{{ item.album_subtitle }}</div>
+                      <p class="card-text mb-auto">{{ item.album_area }}</p>
+                      <div class="btn-group">
+                        <div class="fb-like" data-href="http://127.0.0.1:8000/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+                      </div>
+                    </div>
+                    <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" style="width: 200px; height: 250px;" src="{{ item.album_image }}" data-holder-rendered="true">
+                  </div>
+                </div>
+              {% endfor %}
+              <hr />
+              <span class="container step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
